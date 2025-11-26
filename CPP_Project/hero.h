@@ -1,3 +1,0 @@
-﻿#ifndef 
-
-#endif // !1
