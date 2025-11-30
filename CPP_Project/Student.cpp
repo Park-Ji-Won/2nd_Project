@@ -62,27 +62,27 @@ void Student::showScores() {
 		cout << " 성적이 등록되지 않음." << endl;
 		return;
 	}
-	cout << "=====================" << endl;
+	cout << "\n=====================" << endl;
 	for (int i = 0; i < subjects.size(); i++) {
 		cout << "" << subjects[i] << " : " << scores[i] << " 점" << endl;
 	}
-	cout << "=====================" << endl;
+	cout << "=====================\n" << endl;
 }
 
 void Student::display() {
-	cout << "======== 선택된 학생 정보 ========" << endl;
+	cout << "\n======== 선택된 학생 정보 ========" << endl;
 	cout << "이름: " << name << endl;
-	cout << "학번: " << sex << endl;
+	cout << "성별: " << sex << endl;
 	cout << "학번: " << id << endl;
 	cout << "출석: " << attendance << "주차" << endl;
 
 	showScores();
 
 	if (!scores.empty()) {
-		cout << "평균: " << getAverage() << "점" << endl;
-		cout << "학점" << getGrade() << endl;
 		cout << fixed << setprecision(2);
+		cout << "평균: " << getAverage() << "점" << endl;
+		cout << "학점: " << getGrade() << endl;
 	}
 
-	cout << "====================================" << endl;
+	cout << "====================================\n" << endl;
 }

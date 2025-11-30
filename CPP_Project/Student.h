@@ -12,7 +12,7 @@ private:
 	vector<int> scores;
 	int attendance = 0;
 public:
-	Student(string n, string s, int i) :Person(n, s, i) {}
+	Student(string n, int i, string g) : Person(n, i, g) {}
 
 	void display() override;
 

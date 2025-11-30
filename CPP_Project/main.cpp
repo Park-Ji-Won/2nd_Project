@@ -1,19 +1,37 @@
-﻿#include <iostream>
-#include "Person.h"
-#include "Student.h"	
+﻿#include "Person.h"
+#include "Student.h"
+#include "Educator.h"
+#include <iostream>
 using namespace std;
 
 int main() {
-	cout << "Person 클래스 생성 완료" << endl;
+    Educator Edu("장철기", 1001, "남", "컴퓨터공학과");
+    Edu.display();
 
-	Student s1("박지원", "Male", 202010732);
+    // 학생 3명 생성 (동적 할당)
+    Student* s1 = new Student("김철수", 20241001, "남");
+    s1->addScore("수학", 95);
+    s1->addScore("영어", 88);
+    s1->addScore("C++", 92);
 
-	s1.addAttendance();
-	s1.addAttendance();
+    Student* s2 = new Student("이영희", 20241002, "여");
+    s2->addScore("수학", 78);
+    s2->addScore("영어", 85);
+    s2->addScore("C++", 90);
 
-	s1.addScore("네트워크", 66);
-	s1.addScore("Citizenship for English", 88);
-	s1.addScore("시스템 프로그램밍", 74);
+    Student* s3 = new Student("박민수", 20241003, "남");
+    s3->addScore("수학", 92);
+    s3->addScore("영어", 95);
+    s3->addScore("C++", 88);
 
-	s1.display();
+    // 교수에게 학생 추가
+    Edu.addStudents(s1);
+    Edu.addStudents(s2);
+    Edu.addStudents(s3);
+
+    Edu.viewAllStudents();
+    Edu.showStatistics();
+    Edu.showRanking();
+
+    return 0;
 }
