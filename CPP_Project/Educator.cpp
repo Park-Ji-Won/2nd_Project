@@ -134,11 +134,6 @@ void Educator::inputInfo() {
 	string n, s, mj;
 	int i;
 
-	name = n;
-	id = i;
-	sex = s;
-	major = mj;
-
 	cout << "이름: ";
 	cin.ignore();
 	getline(cin, n);
@@ -159,6 +154,11 @@ void Educator::inputInfo() {
 	cout << "전공: ";
 	cin.ignore();
 	getline(cin, mj);
+
+	name = n;
+	id = i;
+	sex = s;
+	major = mj;
 
 	cout << "\n 입력 완료." << endl;
 }
@@ -209,13 +209,16 @@ void Educator::editInfo() {
 		cout << "정정할 성별: ";
 		cin.ignore();
 		getline(cin, newSex);
+		sex = newSex;
 		cout << " >> 성별이 변경됨." << endl;
 		break;
 	case 4:
 		cout << "정정할 전공: ";
 		cin.ignore();
 		getline(cin, newMajor);
+		major = newMajor;
 		cout << " >> 전공이 변경됨." << endl;
+		break;
 	case 0:
 		cout << " >> 수정 취소." << endl;
 		break;
