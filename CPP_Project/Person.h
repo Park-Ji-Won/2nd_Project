@@ -1,6 +1,7 @@
 ﻿#ifndef PERSON_H
 #define PERSON_H
 
+#include <iostream>
 #include <string>
 using namespace std;
 
@@ -15,16 +16,16 @@ public:
 	virtual void display() = 0;
 	virtual string getType() = 0;
 
-	string getName() {
+	string getName() const {
 		return name;
 	}
-	int getId() {
+	int getId() const {
 		return id;
 	}
-	string getSex() {
+	string getSex() const {
 		return sex;
 	}
-	string getMajor() {
+	string getMajor() const {
 		return major;
 	}
 };

@@ -42,7 +42,6 @@ void addStudentMenu(Educator* Edu) {
 	int id;
 
 	cout << "이름: ";
-	cin.ignore();
 	getline(cin, name);
 
 	cout << "학번: ";
@@ -54,9 +53,11 @@ void addStudentMenu(Educator* Edu) {
 		pause();
 		return;
 	}
+	else {
+		cin.ignore(1000, '\n');
+	}
 
 	cout << "성별: ";
-	cin.ignore();
 	getline(cin, sex);
 
 	cout << "전공: ";
@@ -73,8 +74,7 @@ void addScoreMenu(Educator* Edu) {
 	cout << "========= 성적 입력 =========" << endl;
 
 	if (Edu->getStudentCount() == 0) {
-		cout << ">> 등록된 학생 없음."
-			<< "학생을 추가 필요." << endl;
+		cout << ">> 등록된 학생 없음."<< endl;
 		pause();
 		return;
 	}
@@ -85,22 +85,24 @@ void addScoreMenu(Educator* Edu) {
 
 	Student* s = Edu->findStudent(id);
 	if (s == nullptr) {
+		cin.ignore(1000, '\n');
 		cout << " >> 해당 학번의 학생 없습니다." << endl;
 		pause();
 		return;
 	}
 
-	cout << "\n" << s->getName() << " 학생의 성적을 입력하시오." << endl;
+	cout << "\n" << s->getName() << " 학생의 성적을 입력하시오.(과목명 띄어쓰기 금지)" << endl;
 
 	while (true) {
 		string subject;
 		int score;
 
-		cout << "\n과목명 (0 입력시 종료) : ";
+		cout << "과목명 (0 입력시 종료) : ";
 		cin >> subject;
-		if (subject == "0")
+		if (subject == "0") {
+			cin.ignore(1000, '\n');
 			break;
-
+		}
 		cout << "점수: ";
 		cin >> score;
 
@@ -110,7 +112,9 @@ void addScoreMenu(Educator* Edu) {
 			cout << " >> 0~100 사이의 점수를 입력하시오." << endl;
 			continue;
 		}
+		cin.ignore(1000, '\n');
 		s->addScore(subject, score);
+		cout << " >> " << subject << " 점수 입력됨" << endl;
 	}
 	cout << "\n 성적 입력이 완료됨." << endl;
 	pause();
@@ -129,6 +133,8 @@ void viewStudentMenu(Educator* Edu) {
 	int id;
 	cout << "학번: ";
 	cin >> id;
+
+	cin.ignore(1000,'\n');
 
 	Edu->viewStudentDetail(id);
 	pause();
@@ -151,6 +157,8 @@ void deleteStudentMenu(Educator* Edu) {
 	cout << "삭제 확인(y/n) : ";
 	char confirm;
 	cin >> confirm;
+
+	cin.ignore(1000, '\n');
 
 	if (confirm == 'y' || confirm == 'Y') {
 		Edu->removeStudent(id);
@@ -200,7 +208,6 @@ void clearScreen() {
 
 void pause() {
 	cout << "계속하려면 Enter...";
-	cin.ignore();
 	cin.get();
 }
 
@@ -219,6 +226,9 @@ int main() {
 			cout << ">> 기능에 해당하는 숫자 입력" << endl;
 			pause();
 			continue;
+		}
+		else {
+			cin.ignore(1000, '\n');
 		}
 
 		switch (ch) {
@@ -255,9 +265,10 @@ int main() {
 		case 9:
 			clearScreen();
 			Edu->display();
+			pause();
 			break;
 		case 10:
-			createEducator();
+			clearScreen();
 			Edu->editInfo();
 			pause();
 			break;
@@ -266,8 +277,7 @@ int main() {
 			delete Edu;
 			return 0;
 		default:
-			cout << ">> 잘못된 선택임."
-				<< "다시 선택하시오 >>" << endl;
+			cout << ">> 잘못된 선택임."<< endl;
 			pause();
 		}
 	}

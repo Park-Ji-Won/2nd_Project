@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 #include "Person.h"
 using namespace std;
 
@@ -43,7 +44,7 @@ public:
 		attendance++;
 	}
 
-	int getAttendance() {
+	int getAttendance() const {
 		return attendance;
 	}
 };

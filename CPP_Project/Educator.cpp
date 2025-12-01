@@ -54,12 +54,7 @@ void Educator::viewAllStudents() {
 	cout << "====================================" << endl;
 
 	for (Student* s : students) {
-		cout << "학번: " << s->getId() << endl;
-		cout << "이름: " << s->getName() << endl;
-		cout << "성별: " << s->getSex() << endl;
-		cout << fixed << setprecision(1);
-		cout << "평균: " << s->getAverage() << endl;
-		cout << "학점: " << s->getGrade() << endl;
+		s->display();
 		cout << "====================================" << endl;
 	}
 	cout << "====================================\n" << endl;
@@ -81,8 +76,8 @@ void Educator::showStatistics() {
 	}
 
 	double totalAvg = 0;
-	double maxAvg = 0;
-	double minAvg = 100;
+	double maxAvg = -1.0;
+	double minAvg = 101.0;
 	string topStudent = "";
 
 	for (Student* s : students) {
@@ -130,13 +125,13 @@ void Educator::showRanking() {
 
 void Educator::inputInfo() {
 	cout << "=========== 교수 정보 입력 =============" << endl;
-	cout << "첫 사용 확인." << "해당 정보를 입력하시오" << endl;
+	cout << "첫 사용 확인." << endl;
+	cout << "해당 정보를 입력하시오" << endl;
 
 	string n, s, mj;
 	int i;
 
 	cout << "이름: ";
-	cin.ignore();
 	getline(cin, n);
 
 	cout << "번호: ";
@@ -146,9 +141,9 @@ void Educator::inputInfo() {
 		cin.ignore(50000, '\n');
 		cout << " >> 교수 번호는 숫자로만 입력가능." << endl;
 	}
+	cin.ignore(1000, '\n');
 	
 	cout << "성별: ";
-	cin.ignore();
 	getline(cin, s);
 
 	cout << "전공: ";
@@ -187,31 +182,34 @@ void Educator::editInfo() {
 	switch (choice) {
 	case 1:
 		cout << "정정할 이름: ";
-		cin.ignore();
+		cin.ignore(1000, '\n');
 		getline(cin, newName);
 		name = newName;
 		cout << " >> 이름이 변경됨." << endl;
 		break;
 	case 2:
-		cout << "정정할 학번: ";
+		cout << "정정할 교번: ";
 		cin >> newId;
 		if (cin.fail()) {
 			cin.clear();
 			cin.ignore(50000, '\n');
-			cout << ">> 학번은 숫자로 입력하시오." << endl;
+			cout << ">> 교번은 숫자로 입력하시오." << endl;
 			break;
 		}
+		cin.ignore(1000, '\n');
 		id = newId;
 		cout << " >> 학번이 변경됨." << endl;
 		break;
 	case 3:
 		cout << "정정할 성별: ";
+		cin.ignore(1000, '\n');
 		getline(cin, newSex);
 		sex = newSex;
 		cout << " >> 성별이 변경됨." << endl;
 		break;
 	case 4:
 		cout << "정정할 전공: ";
+		cin.ignore(1000, '\n');
 		getline(cin, newMajor);
 		major = newMajor;
 		cout << " >> 전공이 변경됨." << endl;

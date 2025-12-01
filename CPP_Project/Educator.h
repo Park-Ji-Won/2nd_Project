@@ -1,9 +1,10 @@
 ﻿#ifndef EDUCATOR_H
 #define EDUCATOR_H
 
+#include <vector>
+#include <algorithm>
 #include "Person.h"
 #include "Student.h"
-#include <vector>
 using namespace std;
 
 class Educator : public Person {
@@ -18,7 +19,7 @@ public:
 		return "교수";
 	}
 
-	int getStudentCount() {
+	int getStudentCount() const {
 		return students.size();
 	}
 	void setName(string n) {

@@ -37,16 +37,23 @@ void Student::editInfo() {
 	string newName, newSex, newMajor;
 	int newId;
 
+	if (cin.fail()) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << " >> 잘못된 입력, 다시 입력" << endl;
+		return;
+	}
+
 	switch (ch) {
 	case 1:
-		cout << "수정할 이름: ";
+		cout << "정정할 이름: ";
 		cin.ignore();
 		getline(cin, newName);
 		name = newName;
 		cout << " >> 이름이 변경됨." << endl;
 		break;
 	case 2:
-		cout << "수정할 학번: ";
+		cout << "정정할 학번: ";
 		cin >> newId;
 		if (cin.fail()) {
 			cin.clear();
@@ -54,25 +61,27 @@ void Student::editInfo() {
 			cout << ">> 학번은 숫자로 입력하시오." << endl;
 			break;
 		}
+		cin.ignore(1000, '\n');
+
 		id = newId;
 		cout << " >> 학번이 변경됨." << endl;
 		break;
 	case 3:
-		cout << "수정할 성별: ";
+		cout << "정정할 성별: ";
 		cin.ignore();
 		getline(cin, newSex);
 		sex = newSex;
 		cout << " >> 성별이 변경됨." << endl;
 		break;
 	case 4:
-		cout << "수정할 전공";
+		cout << "정정할 전공: ";
 		cin.ignore();
 		getline(cin, newMajor);
 		major = newMajor;
 		cout << " >> 전공이 변경됨." << endl;
 		break;
 	case 0:
-		cout << " >> 수정 취소." << endl;
+		cout << " >> 정정 취소." << endl;
 		break;
 	default:
 		cout << " >> 잘못된 입력." << endl;
