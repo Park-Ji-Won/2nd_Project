@@ -4,11 +4,11 @@
 using namespace std;
 
 void showMainMenu();
-void addStudentMenu(Educator& Edu);
-void addScoreMenu(Educator& Edu);
-void viewStudentMenu(Educator& Edu);
-void deleteStudentMenu(Educator& Edu);
-void editStudentMenu(Educator& Edu);
+void addStudentMenu(Educator* Edu);
+void addScoreMenu(Educator* Edu);
+void viewStudentMenu(Educator* Edu);
+void deleteStudentMenu(Educator* Edu);
+void editStudentMenu(Educator* Edu);
 Educator* createEducator();
 void clearScreen();
 void pause();
@@ -34,7 +34,7 @@ void showMainMenu() {
 	cout << "==========================================" << endl;
 }
 
-void addStudentMenu(Educator& Edu) {
+void addStudentMenu(Educator* Edu) {
 	clearScreen();
 	cout << "========= 학생 추가 =========" << endl;
 
@@ -46,6 +46,7 @@ void addStudentMenu(Educator& Edu) {
 	getline(cin, name);
 
 	cout << "학번: ";
+	cin >> id;
 	if (cin.fail()) {
 		cin.clear();
 		cin.ignore(9000, '\n');
@@ -53,27 +54,25 @@ void addStudentMenu(Educator& Edu) {
 		pause();
 		return;
 	}
-	cin >> id;
 
 	cout << "성별: ";
 	cin.ignore();
 	getline(cin, sex);
 
 	cout << "전공: ";
-	cin.ignore();
 	getline(cin, major);
 
 	Student* newStudent = new Student(name, id, sex, major);
-	Edu.addStudents(newStudent);
+	Edu->addStudents(newStudent);
 
 	pause();
 }
 
-void addScoreMenu(Educator& Edu) {
+void addScoreMenu(Educator* Edu) {
 	clearScreen();
 	cout << "========= 성적 입력 =========" << endl;
 
-	if (Edu.getStudentCount() == 0) {
+	if (Edu->getStudentCount() == 0) {
 		cout << ">> 등록된 학생 없음."
 			<< "학생을 추가 필요." << endl;
 		pause();
@@ -84,7 +83,7 @@ void addScoreMenu(Educator& Edu) {
 	cout << "학번: ";
 	cin >> id;
 
-	Student* s = Edu.findStudent(id);
+	Student* s = Edu->findStudent(id);
 	if (s == nullptr) {
 		cout << " >> 해당 학번의 학생 없습니다." << endl;
 		pause();
@@ -117,11 +116,11 @@ void addScoreMenu(Educator& Edu) {
 	pause();
 }
 
-void viewStudentMenu(Educator& Edu) {
+void viewStudentMenu(Educator* Edu) {
 	clearScreen();
 	cout << "========= 학생 상세 정보 =========" << endl;
 
-	if (Edu.getStudentCount() == 0) {
+	if (Edu->getStudentCount() == 0) {
 		cout << ">> 등록된 학생이 없음." << endl;
 		pause();
 		return;
@@ -131,15 +130,15 @@ void viewStudentMenu(Educator& Edu) {
 	cout << "학번: ";
 	cin >> id;
 
-	Edu.viewStudentDetail(id);
+	Edu->viewStudentDetail(id);
 	pause();
 }
 
-void deleteStudentMenu(Educator& Edu) {
+void deleteStudentMenu(Educator* Edu) {
 	clearScreen();
 	cout << "========= 등록된 학생 삭제 =========" << endl;
 
-	if (Edu.getStudentCount() == 0) {
+	if (Edu->getStudentCount() == 0) {
 		cout << ">> 등록된 학생이 없음" << endl;
 		pause();
 		return;
@@ -154,7 +153,7 @@ void deleteStudentMenu(Educator& Edu) {
 	cin >> confirm;
 
 	if (confirm == 'y' || confirm == 'Y') {
-		Edu.removeStudent(id);
+		Edu->removeStudent(id);
 	}
 	else {
 		cout << " >> 삭제 취소" << endl;
@@ -162,10 +161,10 @@ void deleteStudentMenu(Educator& Edu) {
 	pause();
 }
 
-void editStudentMenu(Educator& Edu) {
+void editStudentMenu(Educator* Edu) {
 	clearScreen();
 
-	if (Edu.getStudentCount() == 0) {
+	if (Edu->getStudentCount() == 0) {
 		cout << " >> 등록된 학생 없음." << endl;
 		pause();
 		return;
@@ -175,7 +174,7 @@ void editStudentMenu(Educator& Edu) {
 	cout << "정정할 학생 학번: ";
 	cin >> id;
 
-	Student* s = Edu.findStudent(id);
+	Student* s = Edu->findStudent(id);
 	if (s == nullptr) {
 		cout << " >> 해당 학번의 학생을 찾을수 없음." << endl;
 		pause();
@@ -200,12 +199,13 @@ void clearScreen() {
 }
 
 void pause() {
-	cout << "\n 계속하려면 Enter...";
+	cout << "계속하려면 Enter...";
 	cin.ignore();
 	cin.get();
 }
 
 int main() {
+	Educator* Edu = createEducator();
 	int ch;
 
 	while (true) {
@@ -216,61 +216,60 @@ int main() {
 		if (cin.fail()) {
 			cin.clear();
 			cin.ignore(100, '\n');
-			cout << "\n>> 기능에 해당하는 숫자 입력" << endl;
+			cout << ">> 기능에 해당하는 숫자 입력" << endl;
 			pause();
 			continue;
 		}
 
 		switch (ch) {
 		case 1:
-			addStudentMenu(*Edu);
+			addStudentMenu(Edu);
 			break;
 		case 2:
-			addScoreMenu(*Edu);
+			addScoreMenu(Edu);
 			break;
 		case 3:
-			viewStudentMenu(*Edu);
+			viewStudentMenu(Edu);
 			break;
 		case 4:
 			clearScreen();
-			Edu.viewAllStudents();
+			Edu->viewAllStudents();
 			pause();
 			break;
 		case 5:
 			clearScreen();
-			Edu.showStatistics();
+			Edu->showStatistics();
 			pause();
 			break;
 		case 6:
 			clearScreen();
-			Edu.showRanking();
+			Edu->showRanking();
 			pause();
 			break;
 		case 7:
-			deleteStudentMenu(*Edu);
+			deleteStudentMenu(Edu);
 			break;
 		case 8:
-			editStudentMenu(*Edu);
+			editStudentMenu(Edu);
 			break;
 		case 9:
 			clearScreen();
-			Edu.display();
+			Edu->display();
 			break;
 		case 10:
 			createEducator();
-			Edu.editInfo();
+			Edu->editInfo();
 			pause();
 			break;
 		case 0:
-			cout << "\n 프로그램 종료." << endl;
+			cout << "프로그램 종료." << endl;
 			delete Edu;
 			return 0;
 		default:
-			cout << "\n >> 잘못된 선택임."
-				<< "\n다시 선택하시오 >>" << endl;
+			cout << ">> 잘못된 선택임."
+				<< "다시 선택하시오 >>" << endl;
 			pause();
 		}
 	}
-	delete Edu;
 	return 0;
 }

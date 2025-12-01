@@ -60,6 +60,7 @@ void Educator::viewAllStudents() {
 		cout << fixed << setprecision(1);
 		cout << "평균: " << s->getAverage() << endl;
 		cout << "학점: " << s->getGrade() << endl;
+		cout << "====================================" << endl;
 	}
 	cout << "====================================\n" << endl;
 }
@@ -128,7 +129,7 @@ void Educator::showRanking() {
 }
 
 void Educator::inputInfo() {
-	cout << "\n=========== 교수 정보 입력 =============" << endl;
+	cout << "=========== 교수 정보 입력 =============" << endl;
 	cout << "첫 사용 확인." << "해당 정보를 입력하시오" << endl;
 
 	string n, s, mj;
@@ -142,17 +143,15 @@ void Educator::inputInfo() {
 	cin >> i;
 	if (cin.fail()) {
 		cin.clear();
-		cin.ignore(900000000, '\n');
+		cin.ignore(50000, '\n');
 		cout << " >> 교수 번호는 숫자로만 입력가능." << endl;
-		i = 198000001;
 	}
 	
-	cout << "성별 :";
+	cout << "성별: ";
 	cin.ignore();
 	getline(cin, s);
 
 	cout << "전공: ";
-	cin.ignore();
 	getline(cin, mj);
 
 	name = n;
@@ -160,7 +159,7 @@ void Educator::inputInfo() {
 	sex = s;
 	major = mj;
 
-	cout << "\n 입력 완료." << endl;
+	cout << "입력 완료." << endl;
 }
 
 void Educator::editInfo() {
@@ -198,7 +197,7 @@ void Educator::editInfo() {
 		cin >> newId;
 		if (cin.fail()) {
 			cin.clear();
-			cin.ignore(900000000, '\n');
+			cin.ignore(50000, '\n');
 			cout << ">> 학번은 숫자로 입력하시오." << endl;
 			break;
 		}
@@ -207,14 +206,12 @@ void Educator::editInfo() {
 		break;
 	case 3:
 		cout << "정정할 성별: ";
-		cin.ignore();
 		getline(cin, newSex);
 		sex = newSex;
 		cout << " >> 성별이 변경됨." << endl;
 		break;
 	case 4:
 		cout << "정정할 전공: ";
-		cin.ignore();
 		getline(cin, newMajor);
 		major = newMajor;
 		cout << " >> 전공이 변경됨." << endl;

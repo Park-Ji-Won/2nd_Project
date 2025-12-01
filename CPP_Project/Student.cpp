@@ -50,7 +50,7 @@ void Student::editInfo() {
 		cin >> newId;
 		if (cin.fail()) {
 			cin.clear();
-			cin.ignore(900000000, '\n');
+			cin.ignore(50000, '\n');
 			cout << ">> 학번은 숫자로 입력하시오." << endl;
 			break;
 		}
