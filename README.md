@@ -2,6 +2,9 @@
 
 ### 학생 성적 관리 프로그램
 
+####기능
+
+---
+
 첫시작
 
-![Image](https://github.com/user-attachments/assets/42331ae7-801f-4b91-8151-405524820dc0)
