@@ -6,11 +6,10 @@ using namespace std;
 
 class Person {
 protected:
-	string name;
+	string name, sex, major;
 	int id;
-	string sex;
 public:
-	Person(string n, int i, string s) :name(n), id(i), sex(s) {}
+	Person(string n, int i, string s, string mj) :name(n), id(i), sex(s), major(mj) {}
 	virtual ~Person() {}
 
 	virtual void display() = 0;
@@ -24,6 +23,9 @@ public:
 	}
 	string getSex() {
 		return sex;
+	}
+	string getMajor() {
+		return major;
 	}
 };
 #endif // !PERSON_H

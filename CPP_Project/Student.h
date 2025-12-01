@@ -12,7 +12,7 @@ private:
 	vector<int> scores;
 	int attendance = 0;
 public:
-	Student(string n, int i, string g) : Person(n, i, g) {}
+	Student(string n, int i, string s, string mj) : Person(n, i, s, mj) {}
 
 	void display() override;
 
@@ -20,9 +20,24 @@ public:
 		return "학생";
 	}
 
+	void editInfo();
+	void setName(string n) {
+		name = n;
+	}
+	void setId(int i) {
+		id = i;
+	}
+	void setSex(string s) {
+		sex = s;
+	}
+	void setMajor(string mj) {
+		major = mj;
+	}
+
 	void addScore(string subject, int score);
 	double getAverage();
 	string getGrade();
+	void showScores();
 
 	void addAttendance() {
 		attendance++;
@@ -31,8 +46,5 @@ public:
 	int getAttendance() {
 		return attendance;
 	}
-
-	void showScores();
-
 };
 #endif // !STUDENT_H

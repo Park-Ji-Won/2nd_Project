@@ -8,10 +8,9 @@ using namespace std;
 
 class Educator : public Person {
 private:
-	string major;
 	vector<Student*> students;
 public:
-	Educator(string n, int i, string s, string mj) : Person(n, i, s), major(mj) {}
+	Educator(string n, int i, string s, string mj) : Person(n, i, s, mj) {}
 	~Educator();
 
 	void display() override;
@@ -19,18 +18,35 @@ public:
 		return "교수";
 	}
 
+	int getStudentCount() {
+		return students.size();
+	}
+	void setName(string n) {
+		name = n;
+	}
+	void setId(int i) {
+		id = i;
+	}
+	void setSex(string s) {
+		sex = s;
+	}
+	void setMajor(string mj) {
+		major = mj;
+	}
+
+	void inputInfo();
+	void editInfo();
+
 	void addStudents(Student* s);
 	void removeStudent(int id);
 	Student* findStudent(int id);
-
 	void viewAllStudents();
 	void viewStudentDetail(int id);
-	
 	void showStatistics();
 	void showRanking();
 
-	int getStudentCount() {
-		return students.size();
+	vector<Student*>& getStudents() {
+		return students;
 	}
 };
 #endif // !EDUCATOR_H
