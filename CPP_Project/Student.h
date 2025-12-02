@@ -20,8 +20,6 @@ public:
 	string getType() override {
 		return "학생";
 	}
-
-	void editInfo();
 	void setName(string n) {
 		name = n;
 	}
@@ -39,9 +37,16 @@ public:
 	double getAverage();
 	string getGrade();
 	void showScores();
+	void resetScores();
+	void resetAllInfo();
+	void editInfo();
 
-	void addAttendance() {
+	void increaseAttendance() {
 		attendance++;
+	}
+	void setAttendance(int at) {
+		if (at < 0) attendance = 0;
+		else attendance = at;
 	}
 
 	int getAttendance() const {

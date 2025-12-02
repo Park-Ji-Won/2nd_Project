@@ -1,5 +1,6 @@
 ﻿#include "Student.h"
 #include <iomanip>
+#include <cstdlib>
 
 void Student::addScore(string subject, int score) {
 	for (int i = 0; i < subjects.size(); i++) {
@@ -12,81 +13,6 @@ void Student::addScore(string subject, int score) {
 	subjects.push_back(subject);
 	scores.push_back(score);
 	cout << ">> " << subject << " " << score << "점 추가됨." << endl;
-}
-
-void Student::editInfo() {
-	cout << "======== 선택된 학생 정보 수정 ========" << endl;
-	
-	cout << "\n[현재 정보]" << endl;
-	cout << "이름: " << name << endl;
-	cout << "학번: " << id << endl;
-	cout << "성별: " << sex << endl;
-	cout << "전공: " << major << endl;
-
-	cout << "\n 수정할 정보 선택" << endl;
-	cout << "1.이름" << endl;
-	cout << "2.학번" << endl;
-	cout << "3.성별" << endl;
-	cout << "4.전공" << endl;
-	cout << "0.취소" << endl;
-	cout << " 선택 >> ";
-
-	int ch;
-	cin >> ch;
-
-	string newName, newSex, newMajor;
-	int newId;
-
-	if (cin.fail()) {
-		cin.clear();
-		cin.ignore(1000, '\n');
-		cout << " >> 잘못된 입력, 다시 입력" << endl;
-		return;
-	}
-
-	switch (ch) {
-	case 1:
-		cout << "정정할 이름: ";
-		cin.ignore();
-		getline(cin, newName);
-		name = newName;
-		cout << " >> 이름이 변경됨." << endl;
-		break;
-	case 2:
-		cout << "정정할 학번: ";
-		cin >> newId;
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(50000, '\n');
-			cout << ">> 학번은 숫자로 입력하시오." << endl;
-			break;
-		}
-		cin.ignore(1000, '\n');
-
-		id = newId;
-		cout << " >> 학번이 변경됨." << endl;
-		break;
-	case 3:
-		cout << "정정할 성별: ";
-		cin.ignore();
-		getline(cin, newSex);
-		sex = newSex;
-		cout << " >> 성별이 변경됨." << endl;
-		break;
-	case 4:
-		cout << "정정할 전공: ";
-		cin.ignore();
-		getline(cin, newMajor);
-		major = newMajor;
-		cout << " >> 전공이 변경됨." << endl;
-		break;
-	case 0:
-		cout << " >> 정정 취소." << endl;
-		break;
-	default:
-		cout << " >> 잘못된 입력." << endl;
-	}
-	
 }
 
 double Student::getAverage() {
@@ -144,13 +70,124 @@ void Student::showScores() {
 	cout << "====================================\n" << endl;
 }
 
+void Student::resetScores() {
+	subjects.clear();
+	scores.clear();
+	cout << " >> 성적이 초기화 됨." << endl;
+}
+
+void Student::resetAllInfo() {
+	name = "Reset";
+	sex = "Reset";
+	major = "Reset";
+	attendance = 0;
+	resetScores();
+	cout << " >> 학생 정보가 초기화 됨." << endl;
+}
+
+void Student::editInfo() {
+	while (true) {
+		cout << "======== " << name << "학생 정보 수정 ========" << endl;
+		cout << "[현재 정보]" << endl;
+		cout << "이름: " << name << endl;
+		cout << "학번: " << id << endl;
+		cout << "성별: " << sex << endl;
+		cout << "전공: " << major << endl;
+		cout << "==================" << endl;
+
+		cout << "\n 수정할 정보 선택" << endl;
+		cout << "1.이름" << endl;
+		cout << "2.학번" << endl;
+		cout << "3.성별" << endl;
+		cout << "4.전공" << endl;
+		cout << "==================" << endl;
+		cout << "5.성적 초기화" << endl;
+		cout << "6.정보 초기화" << endl;
+		cout << "0.취소" << endl;
+		cout << " 선택 >> ";
+
+		int ch;
+		cin >> ch;
+
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << " >> 잘못된 입력임." << endl;
+			system("pause");
+			continue;
+		}
+		cin.ignore(1000, '\n');
+
+		string newName, newSex, newMajor;
+		int newId;
+		char confirm;
+
+		switch (ch) {
+		case 1:
+			cout << "정정할 이름: ";
+			getline(cin, newName);
+			name = newName;
+			cout << " >> 이름이 변경됨." << endl;
+			break;
+		case 2:
+			cout << "정정할 학번: ";
+			cin >> newId;
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(50000, '\n');
+				cout << ">> 학번은 숫자로 입력하시오." << endl;
+			}
+			else {
+				cin.ignore(1000, '\n');
+				id = newId;
+				cout << " >> 학번이 변경됨." << endl;
+			}
+			break;
+		case 3:
+			cout << "정정할 성별: ";
+			getline(cin, newSex);
+			sex = newSex;
+			cout << " >> 성별이 변경됨." << endl;
+			break;
+		case 4:
+			cout << "정정할 전공: ";
+			getline(cin, newMajor);
+			major = newMajor;
+			cout << " >> 전공이 변경됨." << endl;
+			break;
+		case 5:
+			cout << "성적 초기화 재확인(y/n): ";
+			cin >> confirm;
+			cin.ignore(1000, '\n');
+			if (confirm == 'y' || confirm == 'Y') {
+				resetScores();
+			}
+			break;
+		case 6:
+			cout << "모든 정보 초기화 재확인(y/n): ";
+			cin >> confirm;
+			cin.ignore(1000, '\n');
+			if (confirm == 'y' || confirm == 'Y') {
+				resetAllInfo();
+			}
+			break;
+		case 0:
+			cout << " >> 정정 취소." << endl;
+			return;
+		default:
+			cout << " >> 잘못된 입력." << endl;
+		}
+
+	}
+}
+
 void Student::display() {
 	cout << "\n======== 선택된 학생 정보 ========" << endl;
 	cout << "이름: " << name << endl;
 	cout << "학번: " << id << endl;
 	cout << "성별: " << sex << endl;
 	cout << "전공: " << major << endl;
-	cout << "출석: " << attendance << "주차" << endl;
+	cout << "출석: " << attendance << "회" << endl;
 
 	showScores();
 

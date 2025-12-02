@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <string>
+#include <clocale>
 #include "Educator.h"
 using namespace std;
 
@@ -9,6 +10,7 @@ void addScoreMenu(Educator* Edu);
 void viewStudentMenu(Educator* Edu);
 void deleteStudentMenu(Educator* Edu);
 void editStudentMenu(Educator* Edu);
+void attendanceMenu(Educator* Edu);
 Educator* createEducator();
 void clearScreen();
 void pause();
@@ -16,7 +18,7 @@ void pause();
 void showMainMenu() {
 	clearScreen();
 	cout << "==========================================" << endl;
-	cout << "|         학생 성적 관리 시스템          |" << endl;
+	cout << "|           학생  관리 시스템            |" << endl;
 	cout << "==========================================" << endl;
 	cout << "|         [  학    생  ]                 |" << endl;
 	cout << "|         1. 학생 추가                   |" << endl;
@@ -30,6 +32,7 @@ void showMainMenu() {
 	cout << "|         [  교    수  ]                 |" << endl;
 	cout << "|         9. 교수 정보                   |" << endl;
 	cout << "|        10. 교수 정보 정정              |" << endl;
+	cout << "|        11. 학생 출석 관리              |" << endl;
 	cout << "|         0. 종료                        |" << endl;
 	cout << "==========================================" << endl;
 }
@@ -82,6 +85,7 @@ void addScoreMenu(Educator* Edu) {
 	int id;
 	cout << "학번: ";
 	cin >> id;
+	cin.ignore(1000, '\n');
 
 	Student* s = Edu->findStudent(id);
 	if (s == nullptr) {
@@ -181,6 +185,8 @@ void editStudentMenu(Educator* Edu) {
 	int id;
 	cout << "정정할 학생 학번: ";
 	cin >> id;
+	
+	cin.ignore(1000, '\n');
 
 	Student* s = Edu->findStudent(id);
 	if (s == nullptr) {
@@ -202,6 +208,103 @@ Educator* createEducator() {
 	return Edu;
 }
 
+void attendanceMenu(Educator* Edu) {
+	clearScreen();
+	cout << "========= 학생 출석 관리 =========" << endl;
+
+	if (Edu->getStudentCount() == 0) {
+		cout << ">> 등록된 학생이 없음." << endl;
+		pause();
+		return;
+	}
+
+	int id;
+	cout << "관리할 학생 학번: ";
+	cin >> id;
+
+	if (cin.fail()) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << ">> 숫자를 입력해야 됨." << endl;
+		pause();
+		return;
+	}
+	cin.ignore(1000, '\n');
+	
+	Student* s = Edu->findStudent(id);
+	if (s == nullptr) {
+		cout << " >> 해당 학번의 학생이 없음." << endl;
+		pause();
+		return;
+	}
+	
+	while (true) {
+		clearScreen();
+		cout << "========= " << s->getName() << " 학생 출석 관리========= " << endl;
+		cout << "현재 출석 횟수: " << s->getAttendance() << "회" << endl;
+		cout << "==================" << endl;
+		cout << "1. 출석 체크" << endl;
+		cout << "2. 출석 횟수 정정" << endl;
+		cout << "3. 출석 횟수 초기화" << endl;
+		cout << "0. 뒤로 가기" << endl;
+		cout << "==================" << endl;
+		cout << " 기능 선택 >>";
+
+		int ch;
+		cin >> ch;
+
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			continue;
+		}
+		cin.ignore(1000, '\n');
+		
+		switch (ch) {
+		case 1:
+			s->increaseAttendance();
+			cout << " >> 출석 체크 완료" << endl;
+			cout << " 현재 출석 횟수 : " << s->getAttendance() << "회" << endl;
+			pause();
+			break;
+		case 2:
+			cout << "정정할 출석 횟수 입력: ";
+			int d;
+			cin >> d;
+			if (!cin.fail()) {
+				s->setAttendance(d);
+				cout << " >> 정정 완료." << endl;
+			}
+			cin.ignore(1000, '\n');
+			pause();
+			break;
+		case 3:	
+			cout << "출석 횟수 초기화 재확인(y/n) : ";
+			char confirm;
+			cin >> confirm;
+
+			cin.ignore(1000, '\n');
+
+			if (confirm == 'y' || confirm == 'Y') {
+				s->setAttendance(0);
+				cout << " >> 초기화 완료." << endl;
+			}
+			else {
+				cout << " >> 초기화 취소" << endl;
+			}
+			pause();
+			break;
+		case 0:
+			return;
+		default:
+			cout << " >> 잘못된 선택입니다." << endl;
+			pause();
+		}
+		
+		
+	}
+}
+
 void clearScreen() {
 	system("cls");
 }
@@ -212,6 +315,7 @@ void pause() {
 }
 
 int main() {
+	setlocale(LC_ALL, "korean");
 	Educator* Edu = createEducator();
 	int ch;
 
@@ -223,7 +327,7 @@ int main() {
 		if (cin.fail()) {
 			cin.clear();
 			cin.ignore(100, '\n');
-			cout << ">> 기능에 해당하는 숫자 입력" << endl;
+			cout << ">> 해당하는 숫자만 입력" << endl;
 			pause();
 			continue;
 		}
@@ -271,6 +375,9 @@ int main() {
 			clearScreen();
 			Edu->editInfo();
 			pause();
+			break;
+		case 11:
+			attendanceMenu(Edu);
 			break;
 		case 0:
 			cout << "프로그램 종료." << endl;
