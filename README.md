@@ -8,3 +8,9 @@
 
 교수/학생 정보 입력
 ![Image](https://github.com/user-attachments/assets/8e5f4fbd-330b-431d-af81-11588b90edf5)
+
+---
+
+성적입력
+
+---
