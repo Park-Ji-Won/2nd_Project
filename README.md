@@ -12,5 +12,6 @@
 ---
 
 성적입력
+![Image](https://github.com/user-attachments/assets/dc38fa4d-604e-42e6-b817-a751fb8deb61)
 
 ---
