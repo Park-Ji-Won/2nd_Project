@@ -75,12 +75,23 @@ void Educator::showStatistics() {
 		return;
 	}
 
+	int maleCount = 0;
+	int femaleCount = 0;
 	double totalAvg = 0;
 	double maxAvg = -1.0;
 	double minAvg = 101.0;
 	string topStudent = "";
 
 	for (Student* s : students) {
+
+		string sex = s->getSex();
+		if (sex == "남" || sex == "남성" || sex == "M" || sex == "Male") {
+			maleCount++;
+		}
+		else if (sex == "여" || sex == "여성" || sex == "F" || sex == "Female") {
+			femaleCount++;
+		}
+
 		double avg = s->getAverage();
 		totalAvg += avg;
 
@@ -94,6 +105,7 @@ void Educator::showStatistics() {
 	}
 	cout << "\n========= 학생 전체 통계 ==========" << endl;
 	cout << "학생 수: " << students.size() << "명" << endl;
+	cout << "성별 구성: 남성 " << maleCount << "명/ 여성 " << femaleCount << "명" << endl;
 	cout << fixed << setprecision(2);
 	cout << "반 평균: " << totalAvg / students.size() << "점" << endl;
 	cout << "최고점: " << maxAvg << "점 (" << topStudent << ")" << endl;
