@@ -1,6 +1,5 @@
 ﻿#include <iostream>
 #include <string>
-#include <clocale>
 #include "Educator.h"
 using namespace std;
 
@@ -315,7 +314,7 @@ void pause() {
 }
 
 int main() {
-	setlocale(LC_ALL, "korean");
+
 	Educator* Edu = createEducator();
 	int ch;
 
