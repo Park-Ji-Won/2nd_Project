@@ -38,38 +38,38 @@ void showMainMenu() {
 }
 
 void addStudentMenu(Educator* Edu) {
-	clearScreen();
-	cout << "========= 학생 추가 =========" << endl;
+		clearScreen();
+		cout << "========= 학생 추가 =========" << endl;
 
-	string name, sex, major;
-	int id;
+		string name, sex, major;
+		int id;
 
-	cout << "이름: ";
-	getline(cin, name);
+		cout << "이름: ";
+		getline(cin, name);
 
-	cout << "학번: ";
-	cin >> id;
-	if (cin.fail()) {
-		cin.clear();
-		cin.ignore(9000, '\n');
-		cout << " >> 해당 대상에 맞게 입력하시오" << endl;
+		cout << "학번: ";
+		cin >> id;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(9000, '\n');
+			cout << " >> 해당 대상에 맞게 입력하시오" << endl;
+			pause();
+			return;
+		}
+		else {
+			cin.ignore(1000, '\n');
+		}
+
+		cout << "성별: ";
+		getline(cin, sex);
+
+		cout << "전공: ";
+		getline(cin, major);
+
+		Student* newStudent = new Student(name, id, sex, major);
+		Edu->addStudents(newStudent);
+
 		pause();
-		return;
-	}
-	else {
-		cin.ignore(1000, '\n');
-	}
-
-	cout << "성별: ";
-	getline(cin, sex);
-
-	cout << "전공: ";
-	getline(cin, major);
-
-	Student* newStudent = new Student(name, id, sex, major);
-	Edu->addStudents(newStudent);
-
-	pause();
 }
 
 void addScoreMenu(Educator* Edu) {

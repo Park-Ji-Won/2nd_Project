@@ -134,12 +134,13 @@ void Educator::inputInfo() {
 	cout << "이름: ";
 	getline(cin, n);
 
-	cout << "번호: ";
+	cout << "교번: ";
 	cin >> i;
 	if (cin.fail()) {
 		cin.clear();
 		cin.ignore(50000, '\n');
 		cout << " >> 교수 번호는 숫자로만 입력가능." << endl;
+		i = 1000;
 	}
 	cin.ignore(1000, '\n');
 	
